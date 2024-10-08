@@ -1,3 +1,3 @@
-function test() {
+export function test() {
     void 0;
 }

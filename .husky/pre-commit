@@ -1,0 +1,3 @@
+pnpm lint
+pnpm prettier:fix
+git update-index --again :/:
