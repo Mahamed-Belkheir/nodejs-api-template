@@ -1,0 +1,19 @@
+{
+  "name": "nodejs-api-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "eslint": "^9.12.0",
+    "globals": "^15.10.0",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.8.1"
+  }
+}
