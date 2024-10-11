@@ -1,4 +1,4 @@
-import { Context as Ctx, Get, Http } from "@dikur/http";
+import { Context as Ctx, Get, Http, NestedRouter } from "@dikur/http";
 import { HonoAdapator } from "@dikur/hono";
 import { DependencyContainer, singleton } from "tsyringe";
 import { Context, Hono } from "hono";
@@ -6,6 +6,7 @@ import { ajv } from "./util/ajv";
 import { ClientError } from "./errors";
 import { BaseLogger } from "./util/logger";
 import { StatusCode } from "hono/utils/http-status";
+import { AuthController } from "./controllers/auth";
 
 @singleton()
 @Http("/api")
@@ -14,6 +15,9 @@ export class Api {
     async healthCheck(@Ctx() ctx: Context) {
         return ctx.text("OK");
     }
+
+    @NestedRouter()
+    static auth = AuthController;
 }
 
 export function CreateAPI(container: DependencyContainer) {
