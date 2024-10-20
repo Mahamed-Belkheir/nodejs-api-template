@@ -6,5 +6,5 @@ export function timestamps(t: Knex.CreateTableBuilder, knex: Knex) {
 }
 
 export function entityId(t: Knex.CreateTableBuilder, knex: Knex) {
-    t.uuid("id").primary().defaultTo(knex.fn.uuid);
+    t.uuid("id").primary().defaultTo(knex.fn.uuid());
 }

@@ -1,4 +1,5 @@
-import { OpaqueStrategy, StoreFacade } from "qufl";
+import { StoreFacade } from "qufl/lib/store";
+import { OpaqueStrategy } from "qufl/lib/strategies/opaque";
 import { TUserAuthenticated } from "../entities/user";
 
 export const authService = new OpaqueStrategy<TUserAuthenticated>(

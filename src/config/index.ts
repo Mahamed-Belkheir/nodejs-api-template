@@ -8,8 +8,8 @@ export const Configuration = {
     },
     db: {
         host: env.DB_HOST || "localhost",
-        database: env.DB_NAME || "nodejs-api-template",
-        user: env.DB_USERNAME || "user",
-        password: env.DB_PASSWORD || "password",
+        database: env.DB_NAME || "nodejs_api_template_db",
+        user: env.DB_USERNAME || "postgres",
+        password: env.DB_PASSWORD || "postgres",
     },
 };
