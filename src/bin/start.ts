@@ -5,10 +5,13 @@ import Knex from "knex";
 import { CreateAPI } from "../api";
 import { serve } from "@hono/node-server";
 import { Configuration } from "../config";
+import { BaseLogger } from "../util/logger";
 
 (async () => {
     const knex = Knex(knexConfig);
     container.register(KnexRef, { useValue: knex });
+
+    const log = container.resolve(BaseLogger);
 
     const app = CreateAPI(container);
 
@@ -19,6 +22,6 @@ import { Configuration } from "../config";
             fetch: app.fetch,
             port: Configuration.server.port,
         },
-        (info) => console.log("server listening at port: " + info.port),
+        (info) => log.info("server listening at port: " + info.port),
     );
 })();

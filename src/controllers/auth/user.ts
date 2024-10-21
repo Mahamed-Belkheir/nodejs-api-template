@@ -8,9 +8,9 @@ import {
 } from "../../entities/user";
 import { res } from "../../util/response";
 import { UserAuthenticationUC } from "../../usecases/auth/user";
-import { AUTH_HEADER, authService } from "../../auth/qufl";
+import { authService, authUser } from "../../auth/qufl";
 import { TToken } from "../../util/type";
-import { ClientError } from "../../errors";
+import { JSONResponse } from "../../util/openapi";
 
 @singleton()
 @Http("/user")
@@ -19,6 +19,7 @@ export class UserAuthController {
         @inject(UserAuthenticationUC) private uc: UserAuthenticationUC,
     ) {}
 
+    @JSONResponse.ok.data(TToken)
     @Post("/signin")
     async signin(
         @Ctx() ctx: Context,
@@ -29,6 +30,7 @@ export class UserAuthController {
         return res(ctx).ok.data({ token }, TToken);
     }
 
+    @JSONResponse.ok.data(TToken)
     @Post("/signup")
     async signup(
         @Ctx() ctx: Context,
@@ -39,14 +41,11 @@ export class UserAuthController {
         return res(ctx).ok.data({ token }, TToken);
     }
 
+    @JSONResponse.ok.data(TUserAuthenticated)
+    @authUser()
     @Get("/me")
     async me(@Ctx() ctx: Context) {
-        const token = ctx.req.header(AUTH_HEADER);
-        if (!token) {
-            throw new ClientError("unauthenticated", 401);
-        }
-        const { id } = await authService.authenticateToken(token);
-        const user = await this.uc.getMe(id);
+        const user = await this.uc.getMe();
         return res(ctx).ok.data(user, TUserAuthenticated);
     }
 }

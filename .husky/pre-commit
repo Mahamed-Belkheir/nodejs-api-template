@@ -1,3 +1,4 @@
 pnpm lint
 pnpm prettier:fix
+pnpm gen-docs
 git update-index --again :/:

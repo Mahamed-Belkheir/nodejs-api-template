@@ -7,10 +7,14 @@ import {
 } from "../../entities/user";
 import { ClientError } from "../../errors";
 import { hashString, verifyHash } from "../../util/hash";
+import { UserContext } from "../../ctx/user";
 
 @singleton()
 export class UserAuthenticationUC {
-    constructor(@inject(DBContext) private db: DBContext) {}
+    constructor(
+        @inject(UserContext) private userCtx: UserContext,
+        @inject(DBContext) private db: DBContext,
+    ) {}
     async signup(data: TUserSignupRequest): Promise<TUserAuthenticated> {
         const alreadyExists = await this.db.users.findOne({
             email: data.email,
@@ -30,7 +34,8 @@ export class UserAuthenticationUC {
         return user;
     }
 
-    async getMe(id: string) {
+    async getMe() {
+        const { id } = this.userCtx.get();
         return this.db.users.findOneOrFail({ id });
     }
 }

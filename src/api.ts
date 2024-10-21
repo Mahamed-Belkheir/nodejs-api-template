@@ -7,6 +7,7 @@ import { ClientError } from "./errors";
 import { BaseLogger } from "./util/logger";
 import { StatusCode } from "hono/utils/http-status";
 import { AuthController } from "./controllers/auth";
+import { setupUserContext } from "./ctx/user";
 
 @singleton()
 @Http("/api")
@@ -22,6 +23,8 @@ export class Api {
 
 export function CreateAPI(container: DependencyContainer) {
     const api = new Hono();
+
+    api.use(setupUserContext);
 
     HonoAdapator(Api, api, (clz) => container.resolve(clz), ajv);
 
