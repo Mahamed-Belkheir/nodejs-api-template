@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "npx tap --disable-coverage ./src/tests/ ",
+        "build": "tsc",
         "lint": "npx eslint",
         "prettier:fix": "npx prettier . --write",
         "prettier:check": "npx prettier . --check",

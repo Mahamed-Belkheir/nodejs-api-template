@@ -1,0 +1,42 @@
+version: "3.11"
+name: "nodejs-api-template"
+services:
+    backend:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8008"
+        networks:
+            - app
+            - web
+        env_file:
+            - .env
+        depends_on:
+            - database
+
+    database:
+        image: "ghcr.io/zalando/spilo-16:3.3-p2"
+        ports:
+            - 5432:5432
+        networks:
+            - app
+        env_file:
+            - .env
+
+    ingress:
+        image: nginx:latest
+        networks:
+            - web
+        volumes:
+            - ./nginx/.conf:/etc/nginx/nginx.conf
+        ports:
+            - "80:80"
+        depends_on:
+            - backend
+
+networks:
+    app:
+    web:
+# volumes:
+#   db:

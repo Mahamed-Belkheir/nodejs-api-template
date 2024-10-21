@@ -5,6 +5,13 @@ export const Configuration = {
         name: env.APP_NAME || "nodejs-api-template",
         env: env.NODE_ENV || "development",
         logLevel: env.LOG_LEVEL || "info",
+        port: (() => {
+            let port = Number(env.PORT);
+            if (Number.isNaN(port)) {
+                port = 8008;
+            }
+            return port;
+        })(),
     },
     db: {
         host: env.DB_HOST || "localhost",

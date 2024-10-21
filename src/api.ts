@@ -47,7 +47,7 @@ export function CreateAPI(container: DependencyContainer) {
         ctx.status(404);
         return ctx.json({
             status: "error",
-            message: "not found",
+            message: "route not found",
         });
     });
     return api;
