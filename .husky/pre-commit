@@ -1,4 +1,5 @@
 pnpm lint
 pnpm prettier:fix
 pnpm gen-docs
+git add ./openapi/
 git update-index --again :/:

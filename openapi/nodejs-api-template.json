@@ -16,7 +16,33 @@
     "paths": {
         "/api/health": {
             "get": {
-                "parameters": []
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "const": "success",
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "const": "server active",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "status",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        },
+                        "description": "message response"
+                    }
+                }
             }
         },
         "/api/auth/user/signin": {

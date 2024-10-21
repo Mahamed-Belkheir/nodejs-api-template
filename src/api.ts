@@ -8,13 +8,15 @@ import { BaseLogger } from "./util/logger";
 import { StatusCode } from "hono/utils/http-status";
 import { AuthController } from "./controllers/auth";
 import { setupUserContext } from "./ctx/user";
+import { JSONResponse } from "./util/openapi";
 
 @singleton()
 @Http("/api")
 export class Api {
+    @JSONResponse.ok.msg("server active")
     @Get("/health")
     async healthCheck(@Ctx() ctx: Context) {
-        return ctx.text("OK");
+        return ctx.json({ status: "success", message: "server active" });
     }
 
     @NestedRouter()
