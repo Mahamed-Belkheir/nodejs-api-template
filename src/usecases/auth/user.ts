@@ -16,14 +16,16 @@ export class UserAuthenticationUC {
         @inject(DBContext) private db: DBContext,
     ) {}
     async signup(data: TUserSignupRequest): Promise<TUserAuthenticated> {
-        const alreadyExists = await this.db.users.findOne({
-            email: data.email,
+        return this.db.trx.start(async () => {
+            const alreadyExists = await this.db.users.findOne({
+                email: data.email,
+            });
+            if (alreadyExists) {
+                throw new ClientError("email already in user");
+            }
+            data.password = await hashString(data.password);
+            return await this.db.users.insertOne(data);
         });
-        if (alreadyExists) {
-            throw new ClientError("email already in user");
-        }
-        data.password = await hashString(data.password);
-        return await this.db.users.insertOne(data);
     }
 
     async signin(data: TUserSigninRequest): Promise<TUserAuthenticated> {
