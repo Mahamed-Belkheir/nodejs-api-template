@@ -4,10 +4,11 @@ import {
     TUserAuthenticated,
     TUserSigninRequest,
     TUserSignupRequest,
-} from "../../entities/user";
+} from "../../schemas/user";
 import { ClientError } from "../../errors";
 import { hashString, verifyHash } from "../../util/hash";
 import { UserContext } from "../../ctx/user";
+import { User } from "../../domain/entities/user";
 
 @singleton()
 export class UserAuthenticationUC {
@@ -16,7 +17,7 @@ export class UserAuthenticationUC {
         @inject(DBContext) private db: DBContext,
     ) {}
     async signup(data: TUserSignupRequest): Promise<TUserAuthenticated> {
-        return this.db.trx.start(async () => {
+        return this.db.em.transactional(async () => {
             const alreadyExists = await this.db.users.findOne({
                 email: data.email,
             });
@@ -24,7 +25,9 @@ export class UserAuthenticationUC {
                 throw new ClientError("email already in user");
             }
             data.password = await hashString(data.password);
-            return await this.db.users.insertOne(data);
+            const user = new User(data);
+            await this.db.em.persistAndFlush(user);
+            return user;
         });
     }
 

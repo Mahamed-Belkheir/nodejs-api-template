@@ -3,7 +3,7 @@ name: "nodejs-api-template-testing-dependencies"
 services:
     postgres_db:
         container_name: "api_test_postgres_db"
-        image: "postgres:16"
+        image: "postgres:15"
         ports:
             - 5432:5432
         environment:

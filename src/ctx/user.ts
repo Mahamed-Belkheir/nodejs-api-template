@@ -1,5 +1,5 @@
 import { AsyncLocalStorage } from "async_hooks";
-import { TUserAuthenticated } from "../entities/user";
+import { TUserAuthenticated } from "../schemas/user";
 import { container, singleton } from "tsyringe";
 import { ServerError } from "../errors";
 import { Context, Next } from "hono";

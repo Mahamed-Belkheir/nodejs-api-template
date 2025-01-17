@@ -1,6 +1,6 @@
 import { StoreFacade } from "qufl/lib/store";
 import { OpaqueStrategy } from "qufl/lib/strategies/opaque";
-import { TUserAuthenticated } from "../entities/user";
+import { TUserAuthenticated } from "../schemas/user";
 import { JSONResponse } from "../util/openapi";
 import { Secured } from "@dikur/openapi";
 import { Middleware } from "@dikur/http";

@@ -3,14 +3,17 @@ import { Hono } from "hono";
 import tap from "tap";
 import { Test } from "tap/dist/commonjs/main";
 import { container } from "tsyringe";
-import { knexConfig, KnexRef } from "../db";
+import { configureMikro, knexConfig, KnexRef } from "../db";
 import Knex from "knex";
 import { CreateAPI } from "../api";
+import { MikroORM } from "@mikro-orm/postgresql";
+import { Configuration } from "../config";
 
 export function testFixture(
     name: string,
     cb: (t: Test, honoApi: Hono) => Promise<void>,
 ) {
+    let mikroORM: MikroORM;
     const testConfig = structuredClone(knexConfig);
     testConfig.connection.database = name;
     const testKnex = Knex({ ...structuredClone(testConfig) });
@@ -21,11 +24,15 @@ export function testFixture(
         await baseKnex.raw("DROP DATABASE IF EXISTS ??", name);
         await baseKnex.raw("CREATE DATABASE ??", name);
         await testKnex.migrate.latest();
+        Configuration.db.database = name;
+        mikroORM = await configureMikro(testKnex);
+        container.register(MikroORM, { useValue: mikroORM });
     });
 
     tap.teardown(async () => {
         testKnex.destroy();
         baseKnex.destroy();
+        mikroORM.close();
     });
     return tap.test(name, async (t) => {
         try {
