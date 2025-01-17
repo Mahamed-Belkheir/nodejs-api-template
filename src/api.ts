@@ -9,6 +9,7 @@ import { StatusCode } from "hono/utils/http-status";
 import { AuthController } from "./controllers/auth";
 import { setupUserContext } from "./ctx/user";
 import { JSONResponse } from "./util/openapi";
+import { MikroORM, RequestContext } from "@mikro-orm/postgresql";
 
 @singleton()
 @Http("/api")
@@ -25,7 +26,8 @@ export class Api {
 
 export function CreateAPI(container: DependencyContainer) {
     const api = new Hono();
-
+    const orm = container.resolve(MikroORM);
+    api.use((_ctx, next) => RequestContext.create(orm.em, next));
     api.use(setupUserContext);
 
     HonoAdapator(Api, api, (clz) => container.resolve(clz), ajv);

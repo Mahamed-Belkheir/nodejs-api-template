@@ -1,6 +1,11 @@
-import Knex from "knex";
+import { Knex } from "knex";
 import { Configuration } from "../config";
 import * as path from "path";
+import {
+    EntityCaseNamingStrategy,
+    PostgreSqlDriver,
+} from "@mikro-orm/postgresql";
+import { MikroORM } from "@mikro-orm/core";
 
 export const KnexRef = "knex_ref";
 
@@ -14,4 +19,14 @@ export const knexConfig = {
     },
 };
 
-export const knex = Knex(structuredClone(knexConfig));
+export function configureMikro(knex: Knex) {
+    return MikroORM.init({
+        driver: PostgreSqlDriver,
+        driverOptions: knex,
+        dbName: Configuration.db.database,
+        password: Configuration.db.password,
+        entities: [path.join(__dirname, "../domain/entities/**.js")],
+        entitiesTs: [path.join(__dirname, "../domain/entities/**.ts")],
+        namingStrategy: EntityCaseNamingStrategy,
+    });
+}

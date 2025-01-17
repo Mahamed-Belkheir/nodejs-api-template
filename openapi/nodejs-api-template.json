@@ -199,10 +199,10 @@
                                                     "type": "string"
                                                 },
                                                 "createdAt": {
-                                                    "type": "number"
+                                                    "type": "string"
                                                 },
                                                 "updatedAt": {
-                                                    "type": "number"
+                                                    "type": "string"
                                                 }
                                             },
                                             "required": [

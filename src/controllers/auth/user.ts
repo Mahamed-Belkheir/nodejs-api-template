@@ -5,7 +5,7 @@ import {
     TUserAuthenticated,
     TUserSigninRequest,
     TUserSignupRequest,
-} from "../../entities/user";
+} from "../../schemas/user";
 import { res } from "../../util/response";
 import { UserAuthenticationUC } from "../../usecases/auth/user";
 import { authService, authUser } from "../../auth/qufl";

@@ -1,5 +1,5 @@
 import { AUTH_HEADER } from "../auth/qufl";
-import { TUserSignupRequest } from "../entities/user";
+import { TUserSignupRequest } from "../schemas/user";
 import { testFixture, testReq } from "../util/test";
 
 testFixture("user_auth_test", async (tap, honoApp) => {

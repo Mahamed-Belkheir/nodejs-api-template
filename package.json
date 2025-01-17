@@ -17,6 +17,7 @@
     "license": "ISC",
     "devDependencies": {
         "@eslint/js": "^9.12.0",
+        "@tapjs/esbuild-kit": "3.0.0",
         "@types/node": "^22.7.5",
         "@types/tap": "^15.0.12",
         "eslint": "^9.12.0",
@@ -34,6 +35,8 @@
         "@dikur/http": "^0.2.3",
         "@dikur/openapi": "^0.1.4",
         "@hono/node-server": "^1.13.1",
+        "@mikro-orm/core": "^6.4.2",
+        "@mikro-orm/postgresql": "^6.4.2",
         "@sinclair/typebox": "^0.33.15",
         "ajv": "^8.17.1",
         "ajv-formats": "^3.0.1",
@@ -47,5 +50,6 @@
         "qufl": "0.7.0-beta.6",
         "reflect-metadata": "^0.2.2",
         "tsyringe": "^4.8.0"
-    }
+    },
+    "packageManager": "pnpm@8.3.1+sha512.d264f6640bf4f09de7cfcc547568515bcf0613cf485a03e8ff16616fa69c4172b6f9a0a2925ee44fb060df565c9c9a8eaf061749e77af318cb77f6684a7051f3"
 }
