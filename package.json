@@ -10,7 +10,8 @@
         "prettier:fix": "npx prettier . --write",
         "prettier:check": "npx prettier . --check",
         "prepare": "husky",
-        "gen-docs": "npx ts-node ./src/bin/generate-docs.ts"
+        "gen-docs": "npx ts-node ./src/bin/generate-docs.ts",
+        "migrations:generate": "mikro-orm migration:create --config ./src/db/config.ts"
     },
     "keywords": [],
     "author": "",
@@ -35,8 +36,10 @@
         "@dikur/http": "^0.2.3",
         "@dikur/openapi": "^0.1.4",
         "@hono/node-server": "^1.13.1",
-        "@mikro-orm/core": "^6.4.2",
-        "@mikro-orm/postgresql": "^6.4.2",
+        "@mikro-orm/cli": "^6.4.3",
+        "@mikro-orm/core": "^6.4.3",
+        "@mikro-orm/migrations": "^6.4.3",
+        "@mikro-orm/postgresql": "^6.4.3",
         "@sinclair/typebox": "^0.33.15",
         "ajv": "^8.17.1",
         "ajv-formats": "^3.0.1",

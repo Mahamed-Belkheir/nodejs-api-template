@@ -8,7 +8,7 @@ import {
 import { ClientError } from "../../errors";
 import { hashString, verifyHash } from "../../util/hash";
 import { UserContext } from "../../ctx/user";
-import { User } from "../../domain/entities/user";
+import { User } from "../../domain/entities/auth/user";
 
 @singleton()
 export class UserAuthenticationUC {

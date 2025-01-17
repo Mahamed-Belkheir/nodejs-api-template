@@ -1,6 +1,6 @@
 import { inject, singleton } from "tsyringe";
 import { EntityRepository, MikroORM } from "@mikro-orm/postgresql";
-import { User } from "../domain/entities/user";
+import { User } from "../domain/entities/auth/user";
 
 @singleton()
 export class DBContext {

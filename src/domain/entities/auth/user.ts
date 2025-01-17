@@ -1,10 +1,10 @@
 import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
-import { TUser } from "../../schemas/user";
+import { TUser } from "../../../schemas/user";
 import { randomUUID } from "crypto";
 import { hash } from "argon2";
 
 @Entity({
-    tableName: "users",
+    tableName: "user",
 })
 export class User implements TUser {
     @PrimaryKey()
