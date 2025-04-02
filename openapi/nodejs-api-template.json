@@ -6,10 +6,10 @@
     "openapi": "3.1.0",
     "components": {
         "securitySchemes": {
-            "access_token": {
+            "session_cookie": {
                 "type": "apiKey",
-                "in": "header",
-                "name": "authentication"
+                "in": "cookie",
+                "name": "session_token"
             }
         }
     },
@@ -45,133 +45,7 @@
                 }
             }
         },
-        "/api/auth/user/signin": {
-            "post": {
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "format": "email",
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "email",
-                                    "password"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "const": "success",
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "token": {
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "required": [
-                                                "token"
-                                            ]
-                                        }
-                                    },
-                                    "required": [
-                                        "status",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        },
-                        "description": "data response"
-                    }
-                }
-            }
-        },
-        "/api/auth/user/signup": {
-            "post": {
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "format": "email",
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "fullName": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "email",
-                                    "password",
-                                    "fullName"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "const": "success",
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "token": {
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "required": [
-                                                "token"
-                                            ]
-                                        }
-                                    },
-                                    "required": [
-                                        "status",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        },
-                        "description": "data response"
-                    }
-                }
-            }
-        },
-        "/api/auth/user/me": {
+        "/api/user/me": {
             "get": {
                 "parameters": [],
                 "responses": {
@@ -191,24 +65,33 @@
                                                 "id": {
                                                     "type": "string"
                                                 },
-                                                "fullName": {
+                                                "name": {
                                                     "type": "string"
                                                 },
                                                 "email": {
                                                     "format": "email",
                                                     "type": "string"
                                                 },
-                                                "createdAt": {
+                                                "emailVerified": {
+                                                    "type": "boolean"
+                                                },
+                                                "image": {
                                                     "type": "string"
                                                 },
+                                                "createdAt": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
                                                 "updatedAt": {
-                                                    "type": "string"
+                                                    "type": "string",
+                                                    "format": "date-time"
                                                 }
                                             },
                                             "required": [
                                                 "id",
-                                                "fullName",
+                                                "name",
                                                 "email",
+                                                "emailVerified",
                                                 "createdAt",
                                                 "updatedAt"
                                             ]

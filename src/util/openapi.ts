@@ -1,5 +1,4 @@
 import { OpenAPIAdapter, Response } from "@dikur/openapi";
-import { AUTH_HEADER } from "../auth/qufl";
 import { TSchema, Type } from "@sinclair/typebox";
 import { writeFile } from "fs/promises";
 import { HttpCode, OpenAPI } from "@dikur/openapi/dist/types";
@@ -13,10 +12,10 @@ export function generateAPIDocs(title: string, clz: any) {
         openapi: "3.1.0",
         components: {
             securitySchemes: {
-                access_token: {
+                session_cookie: {
                     type: "apiKey",
-                    in: "header",
-                    name: AUTH_HEADER,
+                    in: "cookie",
+                    name: "session_token",
                 },
             },
         },

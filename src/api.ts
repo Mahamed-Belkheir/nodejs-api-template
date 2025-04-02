@@ -6,10 +6,11 @@ import { ajv } from "./util/ajv";
 import { ClientError } from "./errors";
 import { BaseLogger } from "./util/logger";
 import { StatusCode } from "hono/utils/http-status";
-import { AuthController } from "./controllers/auth";
-import { setupUserContext } from "./ctx/user";
+import { AuthRef, setupAuth, setupUserContext } from "./auth";
 import { JSONResponse } from "./util/openapi";
 import { MikroORM, RequestContext } from "@mikro-orm/postgresql";
+import { res } from "./util/response";
+import { UserController } from "./controllers/user";
 
 @singleton()
 @Http("/api")
@@ -17,11 +18,11 @@ export class Api {
     @JSONResponse.ok.msg("server active")
     @Get("/health")
     async healthCheck(@Ctx() ctx: Context) {
-        return ctx.json({ status: "success", message: "server active" });
+        return res(ctx).ok.msg("server active");
     }
 
     @NestedRouter()
-    static auth = AuthController;
+    static user = UserController;
 }
 
 export function CreateAPI(container: DependencyContainer) {
@@ -29,6 +30,13 @@ export function CreateAPI(container: DependencyContainer) {
     const orm = container.resolve(MikroORM);
     api.use((_ctx, next) => RequestContext.create(orm.em, next));
     api.use(setupUserContext);
+
+    const auth = setupAuth();
+    container.register(AuthRef, { useValue: auth });
+
+    api.on(["POST", "GET"], "/api/auth/**", async (c) => {
+        return auth.handler(c.req.raw);
+    });
 
     HonoAdapator(Api, api, (clz) => container.resolve(clz), ajv);
 

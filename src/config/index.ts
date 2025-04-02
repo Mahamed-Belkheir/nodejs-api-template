@@ -12,6 +12,7 @@ export const Configuration = {
             }
             return port;
         })(),
+        basePath: env.DOMAIN || "localhost:8008",
     },
     db: {
         host: env.DB_HOST || "localhost",

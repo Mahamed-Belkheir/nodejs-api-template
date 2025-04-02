@@ -7,6 +7,7 @@ import { configureMikro } from "../db";
 import { CreateAPI } from "../api";
 import { MikroORM } from "@mikro-orm/postgresql";
 import { Configuration } from "../config";
+import config from "../db/config";
 
 export function testFixture(
     name: string,
@@ -15,9 +16,10 @@ export function testFixture(
     let mikroORM: MikroORM;
 
     tap.before(async () => {
-        Configuration.db.database = name;
-        mikroORM = await configureMikro();
+        config.dbName = name;
+        mikroORM = await configureMikro(config);
         container.register(MikroORM, { useValue: mikroORM });
+        await mikroORM.schema.dropDatabase();
         await mikroORM.schema.ensureDatabase();
         await mikroORM.migrator.up();
     });
@@ -44,7 +46,10 @@ export function testReq(
         headers: Record<string, string> = {},
         body?: any,
     ) {
-        headers = Object.assign({ ...defaultHeaders }, headers);
+        headers = Object.assign(
+            { ...defaultHeaders, Host: Configuration.server.basePath },
+            headers,
+        );
         if (body) {
             body = JSON.stringify(body);
             headers["Content-Type"] = "application/json";
@@ -54,11 +59,10 @@ export function testReq(
             body,
             headers,
         });
-
         try {
-            return await result.json();
+            return result;
         } catch {
-            throw new Error("Got error parsing json: " + result.text);
+            throw new Error(`Got error parsing json: ` + (await result.text()));
         }
     }
 

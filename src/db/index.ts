@@ -1,7 +1,6 @@
-import { MikroORM } from "@mikro-orm/postgresql";
-import config from "./config";
+import { MikroORM, Options } from "@mikro-orm/postgresql";
 
-export function configureMikro() {
+export function configureMikro(config: Options) {
     return MikroORM.init({
         ...config,
     });

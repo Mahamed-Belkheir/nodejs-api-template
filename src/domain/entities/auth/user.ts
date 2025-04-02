@@ -1,40 +1,20 @@
-import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
-import { TUser } from "../../../schemas/user";
-import { randomUUID } from "crypto";
-import { hash } from "argon2";
+import { Entity, type Opt, Property, Unique } from "@mikro-orm/core";
+import type { User as DatabaseUser } from "better-auth";
 
-@Entity({
-    tableName: "user",
-})
-export class User implements TUser {
-    @PrimaryKey()
-    id: string;
+import { Base } from "./base";
 
-    @Property()
-    fullName: string;
+@Entity()
+export class User extends Base implements DatabaseUser {
+    @Property({ type: "string" })
+    @Unique()
+    email!: string;
 
-    @Property()
-    email: string;
+    @Property({ type: "boolean" })
+    emailVerified: Opt<boolean> = false;
 
-    @Property()
-    password: string;
+    @Property({ type: "string" })
+    name!: string;
 
-    @Property()
-    createdAt: string;
-
-    @Property()
-    updatedAt: string;
-
-    constructor(data: Pick<TUser, "email" | "fullName" | "password">) {
-        this.id = randomUUID();
-        this.fullName = data.fullName;
-        this.email = data.email;
-        this.password = data.password;
-        this.createdAt = new Date().toJSON();
-        this.updatedAt = this.createdAt;
-    }
-
-    async hashPassword() {
-        this.password = await hash(this.password);
-    }
+    @Property({ type: "string", nullable: true })
+    image?: string;
 }

@@ -14,8 +14,28 @@
                     "length": 255,
                     "mappedType": "string"
                 },
-                "fullName": {
-                    "name": "fullName",
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamptz",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 6,
+                    "mappedType": "datetime"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamptz",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 6,
+                    "mappedType": "datetime"
+                },
+                "providerId": {
+                    "name": "providerId",
                     "type": "varchar(255)",
                     "unsigned": false,
                     "autoincrement": false,
@@ -23,6 +43,254 @@
                     "nullable": false,
                     "length": 255,
                     "mappedType": "string"
+                },
+                "accessToken": {
+                    "name": "accessToken",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": true,
+                    "length": 255,
+                    "mappedType": "string"
+                },
+                "accountId": {
+                    "name": "accountId",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 255,
+                    "mappedType": "string"
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 255,
+                    "mappedType": "string"
+                },
+                "refreshToken": {
+                    "name": "refreshToken",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": true,
+                    "length": 255,
+                    "mappedType": "string"
+                },
+                "accessTokenExpiresAt": {
+                    "name": "accessTokenExpiresAt",
+                    "type": "timestamptz",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": true,
+                    "length": 6,
+                    "mappedType": "datetime"
+                },
+                "refreshTokenExpiresAt": {
+                    "name": "refreshTokenExpiresAt",
+                    "type": "timestamptz",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": true,
+                    "length": 6,
+                    "mappedType": "datetime"
+                },
+                "scope": {
+                    "name": "scope",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": true,
+                    "length": 255,
+                    "mappedType": "string"
+                },
+                "idToken": {
+                    "name": "idToken",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": true,
+                    "length": 255,
+                    "mappedType": "string"
+                },
+                "password": {
+                    "name": "password",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": true,
+                    "length": 255,
+                    "mappedType": "string"
+                }
+            },
+            "name": "account",
+            "schema": "public",
+            "indexes": [
+                {
+                    "keyName": "account_pkey",
+                    "columnNames": ["id"],
+                    "composite": false,
+                    "constraint": true,
+                    "primary": true,
+                    "unique": true
+                }
+            ],
+            "checks": [],
+            "foreignKeys": {},
+            "nativeEnums": {}
+        },
+        {
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 255,
+                    "mappedType": "string"
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamptz",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 6,
+                    "mappedType": "datetime"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamptz",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 6,
+                    "mappedType": "datetime"
+                },
+                "token": {
+                    "name": "token",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 255,
+                    "mappedType": "string"
+                },
+                "expiresAt": {
+                    "name": "expiresAt",
+                    "type": "timestamptz",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 6,
+                    "mappedType": "datetime"
+                },
+                "ipAddress": {
+                    "name": "ipAddress",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": true,
+                    "length": 255,
+                    "default": "null",
+                    "mappedType": "string"
+                },
+                "userAgent": {
+                    "name": "userAgent",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": true,
+                    "length": 255,
+                    "default": "null",
+                    "mappedType": "string"
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 255,
+                    "mappedType": "string"
+                }
+            },
+            "name": "Session",
+            "schema": "public",
+            "indexes": [
+                {
+                    "columnNames": ["token"],
+                    "composite": false,
+                    "keyName": "Session_token_unique",
+                    "constraint": true,
+                    "primary": false,
+                    "unique": true
+                },
+                {
+                    "keyName": "Session_pkey",
+                    "columnNames": ["id"],
+                    "composite": false,
+                    "constraint": true,
+                    "primary": true,
+                    "unique": true
+                }
+            ],
+            "checks": [],
+            "foreignKeys": {},
+            "nativeEnums": {}
+        },
+        {
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 255,
+                    "mappedType": "string"
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamptz",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 6,
+                    "mappedType": "datetime"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamptz",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 6,
+                    "mappedType": "datetime"
                 },
                 "email": {
                     "name": "email",
@@ -34,8 +302,65 @@
                     "length": 255,
                     "mappedType": "string"
                 },
-                "password": {
-                    "name": "password",
+                "emailVerified": {
+                    "name": "emailVerified",
+                    "type": "boolean",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "default": "false",
+                    "mappedType": "boolean"
+                },
+                "name": {
+                    "name": "name",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 255,
+                    "mappedType": "string"
+                },
+                "image": {
+                    "name": "image",
+                    "type": "varchar(255)",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": true,
+                    "length": 255,
+                    "mappedType": "string"
+                }
+            },
+            "name": "User",
+            "schema": "public",
+            "indexes": [
+                {
+                    "columnNames": ["email"],
+                    "composite": false,
+                    "keyName": "User_email_unique",
+                    "constraint": true,
+                    "primary": false,
+                    "unique": true
+                },
+                {
+                    "keyName": "User_pkey",
+                    "columnNames": ["id"],
+                    "composite": false,
+                    "constraint": true,
+                    "primary": true,
+                    "unique": true
+                }
+            ],
+            "checks": [],
+            "foreignKeys": {},
+            "nativeEnums": {}
+        },
+        {
+            "columns": {
+                "id": {
+                    "name": "id",
                     "type": "varchar(255)",
                     "unsigned": false,
                     "autoincrement": false,
@@ -46,6 +371,26 @@
                 },
                 "createdAt": {
                     "name": "createdAt",
+                    "type": "timestamptz",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 6,
+                    "mappedType": "datetime"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamptz",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 6,
+                    "mappedType": "datetime"
+                },
+                "identifier": {
+                    "name": "identifier",
                     "type": "varchar(255)",
                     "unsigned": false,
                     "autoincrement": false,
@@ -54,8 +399,8 @@
                     "length": 255,
                     "mappedType": "string"
                 },
-                "updatedAt": {
-                    "name": "updatedAt",
+                "value": {
+                    "name": "value",
                     "type": "varchar(255)",
                     "unsigned": false,
                     "autoincrement": false,
@@ -63,13 +408,23 @@
                     "nullable": false,
                     "length": 255,
                     "mappedType": "string"
+                },
+                "expiresAt": {
+                    "name": "expiresAt",
+                    "type": "timestamptz",
+                    "unsigned": false,
+                    "autoincrement": false,
+                    "primary": false,
+                    "nullable": false,
+                    "length": 6,
+                    "mappedType": "datetime"
                 }
             },
-            "name": "user",
+            "name": "verification",
             "schema": "public",
             "indexes": [
                 {
-                    "keyName": "user_pkey",
+                    "keyName": "verification_pkey",
                     "columnNames": ["id"],
                     "composite": false,
                     "constraint": true,

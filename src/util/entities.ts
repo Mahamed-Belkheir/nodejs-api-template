@@ -1,6 +1,8 @@
 import { Type } from "@sinclair/typebox";
 
+export const TDate = Type.Unsafe<Date>({ type: "string", format: "date-time" });
+
 export const timestampFields = {
-    createdAt: Type.String(),
-    updatedAt: Type.String(),
+    createdAt: TDate,
+    updatedAt: TDate,
 };

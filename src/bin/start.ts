@@ -6,9 +6,10 @@ import { serve } from "@hono/node-server";
 import { Configuration } from "../config";
 import { BaseLogger } from "../util/logger";
 import { MikroORM } from "@mikro-orm/postgresql";
+import config from "../db/config";
 
 (async () => {
-    const mikroORM = await configureMikro();
+    const mikroORM = await configureMikro(config);
     container.register(MikroORM, { useValue: mikroORM });
 
     const log = container.resolve(BaseLogger);
