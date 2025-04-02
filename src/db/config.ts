@@ -21,6 +21,8 @@ const config: Options = {
     migrations: {
         path: path.join(__dirname, "./migrations"),
     },
+    forceUndefined: true,
+    ignoreUndefinedInQuery: true,
 };
 
 export default config;

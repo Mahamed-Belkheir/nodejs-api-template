@@ -1,13 +1,11 @@
 import { AsyncLocalStorage } from "async_hooks";
-import { TUserAuthenticated } from "../schemas/user";
-import { container, singleton } from "tsyringe";
+import { TUser } from "../schemas/user";
+import { singleton } from "tsyringe";
 import { ServerError } from "../errors";
-import { Context, Next } from "hono";
-import { AUTH_HEADER, authService } from "../auth/qufl";
 
 @singleton()
 export class UserContext {
-    private store = new AsyncLocalStorage<TUserAuthenticated>();
+    private store = new AsyncLocalStorage<TUser>();
     get() {
         const user = this.getOptional();
         if (!user) {
@@ -21,20 +19,7 @@ export class UserContext {
         return this.store.getStore();
     }
 
-    public start<T>(data: TUserAuthenticated, cb: () => T | Promise<T>) {
+    public start<T>(data: TUser, cb: () => T | Promise<T>) {
         return this.store.run(data, cb);
-    }
-}
-
-export async function setupUserContext(ctx: Context, next: Next) {
-    const token = ctx.req.header(AUTH_HEADER);
-    if (!token) {
-        return next();
-    }
-    try {
-        const user = await authService.authenticateToken(token);
-        return container.resolve(UserContext).start(user, next);
-    } catch {
-        return next();
     }
 }
